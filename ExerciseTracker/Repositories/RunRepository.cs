@@ -14,4 +14,9 @@ public class RunRepository : Repository<Run>, IRunRepository
     {
         return GetAll().FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task<List<Run>> GetAllRunsAsync()
+    {
+        return await GetAll().ToListAsync();
+    }
 }
