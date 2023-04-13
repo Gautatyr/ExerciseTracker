@@ -3,7 +3,7 @@ using ExerciseTracker.Repositories;
 
 namespace ExerciseTracker.Services;
 
-public class RunService : IRunService;
+public class RunService : IRunService
 {
     private readonly IRunRepository _runRepository;
 
@@ -22,7 +22,7 @@ public class RunService : IRunService;
         return await _runRepository.GetRunByIdAsync(id);
     }
 
-    public async Task<Run> AddCustomerAsync(Run newRun)
+    public async Task<Run> AddRunAsync(Run newRun)
     {
         return await _runRepository.AddAsync(newRun);
     }

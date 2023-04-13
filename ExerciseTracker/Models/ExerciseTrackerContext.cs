@@ -4,8 +4,7 @@ namespace ExerciseTracker.Models;
 
 public class ExerciseTrackerContext : DbContext
 {
-    public ExerciseTrackerContext(DbContextOptions<ExerciseTrackerContext> options)
-        : base(options)
+    public ExerciseTrackerContext()
     {
     }
 
