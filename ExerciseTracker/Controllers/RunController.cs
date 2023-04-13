@@ -3,7 +3,7 @@ using ExerciseTracker.Models;
 
 namespace ExerciseTracker.Controllers;
 
-public class RunController 
+public class RunController : Controller
 {
     private readonly IRunService _runService;
 
@@ -17,17 +17,13 @@ public class RunController
         return await _runService.GetRunByIdAsync(1);
     }
 
-    public async Task<Run> CreateRun()
+    public async Task<Run> CreateRun(Run run)
     {
-        var run = new Run
-        {
-            Start = DateTime.Now,
-            End = DateTime.Now,
-            Duration = TimeSpan.Zero,
-            Comment = "Its working",
-            Distance = "4,4km"
-        };
-
         return await _runService.AddRunAsync(run);
+    }
+
+    public async Task<List<Run>> GetAllRunsAsync()
+    {
+        return await _runService.GetAllRunsAsync();
     }
 }
