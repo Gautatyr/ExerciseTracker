@@ -12,9 +12,9 @@ public class RunController : Controller
         _runService = runService;
     }
 
-    public async Task<Run> GetRunById()
+    public async Task<Run> GetRunById(int id)
     {
-        return await _runService.GetRunByIdAsync(1);
+        return await _runService.GetRunByIdAsync(id);
     }
 
     public async Task<Run> CreateRun(Run run)
@@ -25,5 +25,10 @@ public class RunController : Controller
     public async Task<List<Run>> GetAllRunsAsync()
     {
         return await _runService.GetAllRunsAsync();
+    }
+
+    public async Task<Run> UpdateRunAsync(Run run)
+    {
+        return await _runService.UpdateRunAsync(run);
     }
 }

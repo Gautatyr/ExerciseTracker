@@ -8,4 +8,9 @@ public class Run
     public TimeSpan Duration { get; set; }
     public string? Distance { get; set; }
     public string? Comment { get; set; }
+
+    public void SetDuration()
+    {
+        Duration = End - Start;
+    }
 }

@@ -26,4 +26,9 @@ public class RunService : IRunService
     {
         return await _runRepository.AddAsync(newRun);
     }
+
+    public async Task<Run> UpdateRunAsync(Run newRun)
+    {
+        return await _runRepository.UpdateAsync(newRun);
+    }
 }
