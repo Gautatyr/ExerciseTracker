@@ -26,10 +26,6 @@ public class RunRepository : Repository<Run>, IRunRepository
 
     public async Task<Run> DeleteRunAsync(Run run)
     {
-        /*Run run = await GetRunByIdAsync(id);
-        ExerciseTrackerContext.Remove(run);
-        await ExerciseTrackerContext.SaveChangesAsync();
-        return run;*/
         return await DeleteAsync(run);
     }
 }
