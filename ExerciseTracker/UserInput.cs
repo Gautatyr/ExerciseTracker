@@ -7,10 +7,10 @@ namespace ExerciseTracker;
 
 public class UserInput
 {
-    private readonly RunController _controller;
+    private readonly IRunController _controller;
     string error = string.Empty;
 
-    public UserInput(RunController runController) 
+    public UserInput(IRunController runController) 
     {
         _controller = runController;
     }

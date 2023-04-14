@@ -43,7 +43,7 @@ public static class DataValidation
         return int.Parse(input);
     }
 
-    public static int GetRunIdInput(RunController controller)
+    public static int GetRunIdInput(IRunController controller)
     {
         var id = GetIntInput();
 
