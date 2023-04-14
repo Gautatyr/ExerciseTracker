@@ -8,7 +8,7 @@ public class ExerciseTrackerContext : DbContext
     {
     }
 
-    public DbSet<Run> Running { get; set; } = null!;
+    public DbSet<Run> Run { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseInMemoryDatabase("ExerciseTracker.db");

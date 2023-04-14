@@ -7,7 +7,7 @@ namespace ExerciseTracker;
 
 public class UserInput
 {
-    RunController controller;
+    private readonly RunController controller;
     string error = string.Empty;
 
     public UserInput(RunController runController) 
@@ -22,11 +22,8 @@ public class UserInput
         do
         {
             Console.Clear();
-            Console.WriteLine($"\nExercise Tracker\n");
 
-            ConsoleTableBuilder
-                .From(controller.GetAllRunsAsync().Result)
-                .ExportAndWriteLine();
+            DisplayRunTable(controller.GetAllRunsAsync().Result);
 
             Console.WriteLine($"\n1 - Add Run\n");
             Console.WriteLine($"\n2 - Update Run\n");
@@ -46,7 +43,9 @@ public class UserInput
                     await UpdateRun();
                     break;
                 case "3":
-                    // delete run
+                    Console.WriteLine("\nType the id of the run you want to Delete\n");
+                    var id = GetRunIdInput(controller);
+                    await controller.DeleteRunAsync(id);
                     break;
                 case "0":
                     Environment.Exit(0);
@@ -67,27 +66,18 @@ public class UserInput
     {
         Console.Clear();
 
-        ConsoleTableBuilder
-                .From(controller.GetAllRunsAsync().Result)
-                .ExportAndWriteLine();
+        DisplayRunTable(controller.GetAllRunsAsync().Result);
 
         Console.WriteLine("Type the id of the run you wish to Update");
 
-        var id = GetIntInput();
-
-        while (controller.GetRunById(id).Result == null)
-        {
-            Console.WriteLine("\nError: Invalid input, try again\n");
-            id = GetIntInput();
-        }
+        var id = GetRunIdInput(controller);
 
         Run newRun = SetupRun();
-        newRun.Id = id;
 
-        await controller.UpdateRunAsync(newRun);
+        await controller.UpdateRunAsync(newRun, id);
     }
 
-    private Run SetupRun()
+    private static Run SetupRun()
     {
         Console.Clear();
 
@@ -111,5 +101,37 @@ public class UserInput
         newRun.SetDuration();
 
         return newRun;
+    }
+
+    private static void DisplayRunTable(List<Run> list)
+    {
+        ConsoleTableBuilder
+                .From(list)
+                .WithTitle("EXERCISE TRACKER", ConsoleColor.Yellow, ConsoleColor.DarkGray)
+                .WithColumn("ID", "Starting Time", "Ending Time", "Run Duration", "Distance", "Comment")
+                .WithCharMapDefinition(new Dictionary<CharMapPositions, char> {
+                    {CharMapPositions.BottomLeft, '=' },
+                    {CharMapPositions.BottomCenter, '=' },
+                    {CharMapPositions.BottomRight, '=' },
+                    {CharMapPositions.BorderTop, '=' },
+                    {CharMapPositions.BorderBottom, '=' },
+                    {CharMapPositions.BorderLeft, '|' },
+                    {CharMapPositions.BorderRight, '|' },
+                    {CharMapPositions.DividerY, '|' },
+                })
+                .WithHeaderCharMapDefinition(new Dictionary<HeaderCharMapPositions, char> {
+                    {HeaderCharMapPositions.TopLeft, '=' },
+                    {HeaderCharMapPositions.TopCenter, '=' },
+                    {HeaderCharMapPositions.TopRight, '=' },
+                    {HeaderCharMapPositions.BottomLeft, '|' },
+                    {HeaderCharMapPositions.BottomCenter, '-' },
+                    {HeaderCharMapPositions.BottomRight, '|' },
+                    {HeaderCharMapPositions.Divider, '|' },
+                    {HeaderCharMapPositions.BorderTop, '=' },
+                    {HeaderCharMapPositions.BorderBottom, '-' },
+                    {HeaderCharMapPositions.BorderLeft, '|' },
+                    {HeaderCharMapPositions.BorderRight, '|' },
+                })
+                .ExportAndWriteLine();
     }
 }

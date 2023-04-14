@@ -14,14 +14,14 @@ Run newRun = new()
 {
     Start = DateTime.Now,
     End = DateTime.Now,
-    Distance = "0",
-    Comment = "Test"
+    Distance = "15",
+    Comment = "This is a test"
 };
 
 newRun.SetDuration();
 
-runController.CreateRun(newRun);
+await runController.CreateRun(newRun);
 
 UserInput userInput = new(runController);
 
-userInput.MainMenuAsync();
+await userInput.MainMenuAsync();

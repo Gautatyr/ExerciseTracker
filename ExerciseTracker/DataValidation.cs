@@ -1,4 +1,6 @@
-﻿namespace ExerciseTracker;
+﻿using ExerciseTracker.Controllers;
+
+namespace ExerciseTracker;
 
 public static class DataValidation
 {
@@ -39,5 +41,18 @@ public static class DataValidation
         }
 
         return int.Parse(input);
+    }
+
+    public static int GetRunIdInput(RunController controller)
+    {
+        var id = GetIntInput();
+
+        while (controller.GetRunById(id).Result == null)
+        {
+            Console.WriteLine("\nError: Invalid input, try again\n");
+            id = GetIntInput();
+        }
+
+        return id;
     }
 }
