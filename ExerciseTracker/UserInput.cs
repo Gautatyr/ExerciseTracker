@@ -7,12 +7,12 @@ namespace ExerciseTracker;
 
 public class UserInput
 {
-    private readonly RunController controller;
+    private readonly RunController _controller;
     string error = string.Empty;
 
     public UserInput(RunController runController) 
     {
-        controller = runController;
+        _controller = runController;
     }
 
     public async Task MainMenuAsync()
@@ -23,7 +23,7 @@ public class UserInput
         {
             Console.Clear();
 
-            DisplayRunTable(controller.GetAllRunsAsync().Result);
+            DisplayRunTable(_controller.GetAllRunsAsync().Result);
 
             Console.WriteLine($"\n1 - Add Run\n");
             Console.WriteLine($"\n2 - Update Run\n");
@@ -44,8 +44,8 @@ public class UserInput
                     break;
                 case "3":
                     Console.WriteLine("\nType the id of the run you want to Delete\n");
-                    var id = GetRunIdInput(controller);
-                    await controller.DeleteRunAsync(controller.GetRunById(id).Result);
+                    var id = GetRunIdInput(_controller);
+                    await _controller.DeleteRunAsync(_controller.GetRunByIdAsync(id).Result);
                     break;
                 case "0":
                     Environment.Exit(0);
@@ -60,24 +60,24 @@ public class UserInput
     private async Task AddRun()
     {
         Run newRun = new();
-        await controller.CreateRun(SetupRun(newRun));
+        await _controller.CreateRunAsync(SetupRun(newRun));
     }
 
     private async Task UpdateRun()
     {
         Console.Clear();
 
-        DisplayRunTable(controller.GetAllRunsAsync().Result);
+        DisplayRunTable(_controller.GetAllRunsAsync().Result);
 
         Console.WriteLine("Type the id of the run you wish to Update");
 
-        var id = GetRunIdInput(controller);
+        var id = GetRunIdInput(_controller);
 
-        var run = controller.GetRunById(id).Result;
+        var run = _controller.GetRunByIdAsync(id).Result;
 
         SetupRun(run);
 
-        await controller.UpdateRunAsync(run);
+        await _controller.UpdateRunAsync(run);
     }
 
     private static Run SetupRun(Run run)

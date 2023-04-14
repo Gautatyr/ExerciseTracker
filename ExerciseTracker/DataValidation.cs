@@ -47,7 +47,7 @@ public static class DataValidation
     {
         var id = GetIntInput();
 
-        while (controller.GetRunById(id).Result == null)
+        while (controller.GetRunByIdAsync(id).Result == null)
         {
             Console.WriteLine("\nError: Invalid input, try again\n");
             id = GetIntInput();

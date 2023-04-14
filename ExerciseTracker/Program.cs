@@ -20,7 +20,7 @@ Run newRun = new()
 
 newRun.SetDuration();
 
-await runController.CreateRun(newRun);
+await runController.CreateRunAsync(newRun);
 
 UserInput userInput = new(runController);
 
