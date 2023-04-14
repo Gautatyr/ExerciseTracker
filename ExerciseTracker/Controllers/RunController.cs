@@ -31,7 +31,7 @@ public class RunController : IRunController
     {
         return await _runService.UpdateRunAsync(run);
     }
-    
+
     public async Task<Run> DeleteRunAsync(Run run)
     {
         return await _runService.DeleteRunAsync(run);

@@ -8,7 +8,7 @@ public static class DataValidation
     {
         var input = Console.ReadLine();
 
-        while (!DateTime.TryParse(input, out _) )
+        while (!DateTime.TryParse(input, out _))
         {
             Console.WriteLine("\nError: Invalid input, try again\n");
             input = Console.ReadLine();
@@ -21,7 +21,7 @@ public static class DataValidation
     {
         var input = Console.ReadLine();
 
-        while (!double.TryParse(input, out _) ) 
+        while (!double.TryParse(input, out _))
         {
             Console.WriteLine("\nError: Invalid input, try again\n");
             input = Console.ReadLine();

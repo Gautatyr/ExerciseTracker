@@ -10,7 +10,7 @@ public class UserInput
     private readonly IRunController _controller;
     string error = string.Empty;
 
-    public UserInput(IRunController runController) 
+    public UserInput(IRunController runController)
     {
         _controller = runController;
     }
