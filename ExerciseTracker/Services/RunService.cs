@@ -27,13 +27,13 @@ public class RunService : IRunService
         return await _runRepository.AddAsync(newRun);
     }
 
-    public async Task<Run> UpdateRunAsync(Run newRun, int id)
+    public async Task<Run> UpdateRunAsync(Run newRun)
     {
-        return await _runRepository.UpdateRunAsync(newRun, id);
+        return await _runRepository.UpdateRunAsync(newRun);
     }
 
-    public async Task<Run> DeleteRunAsync(int id)
+    public async Task<Run> DeleteRunAsync(Run run)
     {
-        return await _runRepository.DeleteRunAsync(id);
+        return await _runRepository.DeleteRunAsync(run);
     }
 }

@@ -19,24 +19,17 @@ public class RunRepository : Repository<Run>, IRunRepository
         return await GetAll().ToListAsync();
     }
 
-    public async Task<Run> UpdateRunAsync(Run newRun, int id)
+    public async Task<Run> UpdateRunAsync(Run run)
     {
-        Run run = await GetRunByIdAsync(id);
-
-        run.Start = newRun.Start;
-        run.End = newRun.End;
-        run.Comment = newRun.Comment;
-        run.Distance = newRun.Distance;
-        run.SetDuration();
-
-        return run;
+        return await UpdateAsync(run);
     }
 
-    public async Task<Run> DeleteRunAsync(int id)
+    public async Task<Run> DeleteRunAsync(Run run)
     {
-        Run run = await GetRunByIdAsync(id);
+        /*Run run = await GetRunByIdAsync(id);
         ExerciseTrackerContext.Remove(run);
         await ExerciseTrackerContext.SaveChangesAsync();
-        return run;
+        return run;*/
+        return await DeleteAsync(run);
     }
 }

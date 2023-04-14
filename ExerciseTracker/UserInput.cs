@@ -45,7 +45,7 @@ public class UserInput
                 case "3":
                     Console.WriteLine("\nType the id of the run you want to Delete\n");
                     var id = GetRunIdInput(controller);
-                    await controller.DeleteRunAsync(id);
+                    await controller.DeleteRunAsync(controller.GetRunById(id).Result);
                     break;
                 case "0":
                     Environment.Exit(0);
@@ -72,9 +72,17 @@ public class UserInput
 
         var id = GetRunIdInput(controller);
 
+        var run = controller.GetRunById(id).Result;
+
         Run newRun = SetupRun();
 
-        await controller.UpdateRunAsync(newRun, id);
+        run.Start = newRun.Start;
+        run.End = newRun.End;
+        run.Comment = newRun.Comment;
+        run.Distance = newRun.Distance;
+        run.SetDuration();
+
+        await controller.UpdateRunAsync(run);
     }
 
     private static Run SetupRun()

@@ -27,13 +27,13 @@ public class RunController
         return await _runService.GetAllRunsAsync();
     }
 
-    public async Task<Run> UpdateRunAsync(Run run, int id)
+    public async Task<Run> UpdateRunAsync(Run run)
     {
-        return await _runService.UpdateRunAsync(run, id);
+        return await _runService.UpdateRunAsync(run);
     }
     
-    public async Task<Run> DeleteRunAsync(int id)
+    public async Task<Run> DeleteRunAsync(Run run)
     {
-        return await _runService.DeleteRunAsync(id);
+        return await _runService.DeleteRunAsync(run);
     }
 }

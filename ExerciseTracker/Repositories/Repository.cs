@@ -47,12 +47,32 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, n
     {
         if (entity == null)
         {
-            throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+            throw new ArgumentNullException($"{nameof(UpdateAsync)} entity must not be null");
         }
 
         try
         {
             ExerciseTrackerContext.Update(entity);
+            await ExerciseTrackerContext.SaveChangesAsync();
+
+            return entity;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
+        }
+    }
+
+    public async Task<TEntity> DeleteAsync(TEntity entity)
+    {
+        if (entity == null)
+        {
+            throw new ArgumentNullException($"{nameof(DeleteAsync)} entity must not be null");
+        }
+
+        try
+        {
+            ExerciseTrackerContext.Remove(entity);
             await ExerciseTrackerContext.SaveChangesAsync();
 
             return entity;
