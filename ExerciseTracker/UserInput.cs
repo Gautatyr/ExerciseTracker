@@ -59,7 +59,8 @@ public class UserInput
 
     private async Task AddRun()
     {
-        await controller.CreateRun(SetupRun());
+        Run newRun = new();
+        await controller.CreateRun(SetupRun(newRun));
     }
 
     private async Task UpdateRun()
@@ -74,18 +75,12 @@ public class UserInput
 
         var run = controller.GetRunById(id).Result;
 
-        Run newRun = SetupRun();
-
-        run.Start = newRun.Start;
-        run.End = newRun.End;
-        run.Comment = newRun.Comment;
-        run.Distance = newRun.Distance;
-        run.SetDuration();
+        SetupRun(run);
 
         await controller.UpdateRunAsync(run);
     }
 
-    private static Run SetupRun()
+    private static Run SetupRun(Run run)
     {
         Console.Clear();
 
@@ -98,17 +93,13 @@ public class UserInput
         Console.WriteLine("\nType in any comment you have on the run, or leave empty\n");
         var comment = Console.ReadLine();
 
-        Run newRun = new()
-        {
-            Start = start,
-            End = end,
-            Distance = $"{distance}km",
-            Comment = comment
-        };
+        run.Start = start;
+        run.End = end;
+        run.Distance = $"{distance}km";
+        run.Comment = comment;
+        run.SetDuration();
 
-        newRun.SetDuration();
-
-        return newRun;
+        return run;
     }
 
     private static void DisplayRunTable(List<Run> list)
